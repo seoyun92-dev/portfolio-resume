@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python -m http.server 8000)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:8000/)",
+      "Bash(curl -s http://localhost:8000/)",
+      "Bash(nohup python -m http.server 8000)",
+      "Read(//tmp/**)"
+    ]
+  }
+}

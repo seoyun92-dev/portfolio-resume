@@ -1,0 +1,131 @@
+/* ============================================================================
+   첫 방문자용 인터랙티브 투어 (스포트라이트)
+   - css/style.css의 CSS 변수를 그대로 사용해 라이트/다크 테마에 자동으로 맞춘다.
+   ============================================================================ */
+
+.tour-root {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  pointer-events: none;
+}
+
+.tour-spotlight {
+  position: fixed;
+  border-radius: 8px;
+  box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.78);
+  pointer-events: none;
+  transition:
+    top 0.25s ease,
+    left 0.25s ease,
+    width 0.25s ease,
+    height 0.25s ease;
+}
+
+.tour-tooltip {
+  position: fixed;
+  z-index: 2001;
+  width: 280px;
+  max-width: calc(100vw - 20px);
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: 14px 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  pointer-events: auto;
+  color: var(--color-text-primary);
+}
+
+.tour-tooltip-header {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.tour-tooltip-step {
+  font-size: 11px;
+  color: var(--color-text-secondary);
+  font-weight: 600;
+}
+
+.tour-tooltip-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--color-text-primary);
+}
+
+.tour-tooltip-text {
+  margin: 0 0 14px 0;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--color-text-primary);
+}
+
+.tour-tooltip-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.tour-btn {
+  border: none;
+  border-radius: 4px;
+  padding: 6px 12px;
+  font-size: 12px;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.tour-btn-skip {
+  background: transparent;
+  color: var(--color-text-secondary);
+}
+
+.tour-btn-skip:hover {
+  color: var(--color-text-primary);
+}
+
+.tour-btn-next {
+  background: var(--color-accent);
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.tour-btn-next:hover {
+  background: var(--color-accent-hover);
+}
+
+/* 상태바의 "투어 다시 보기" 버튼: 기존 .status-item 톤에 맞춤 */
+.tour-replay-btn {
+  background: transparent;
+  border: none;
+  padding: 0;
+  font: inherit;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+}
+
+.tour-replay-btn:hover {
+  color: var(--color-accent);
+}
+
+/* 모바일(JS가 MOBILE_BREAKPOINT 이하에서 부여): 대상 옆이 아니라 항상 화면 중앙에 배치해
+   하단 요소(상태바·동료 위젯 등)를 가리킬 때도 스포트라이트 대상이 가려지지 않게 한다 */
+.tour-tooltip.tour-tooltip-center {
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%);
+  width: calc(100vw - 40px);
+  max-width: 320px;
+}
+
+.tour-tooltip.tour-tooltip-center .tour-tooltip-actions {
+  flex-direction: column-reverse;
+}
+
+.tour-tooltip.tour-tooltip-center .tour-btn {
+  width: 100%;
+  padding: 10px 12px;
+  text-align: center;
+}
