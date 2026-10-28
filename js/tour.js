@@ -30,7 +30,7 @@
 
   // 모바일 사이드바 열기/닫기는 PortfolioApp(js/app.js)의 전역 인스턴스 `app`을 그대로 재사용한다.
   // widget.js가 app.openFile을 재사용하는 것과 같은 방식 — app이 없거나 메서드가 없어도 조용히 무시.
-  function withMobileSidebar(methodName) {
+  function withMobileSidebar(methodName, { instant = false } = {}) {
     return function () {
       if (window.innerWidth > MOBILE_BREAKPOINT) return;
       if (
@@ -38,7 +38,23 @@
         app &&
         typeof app[methodName] === "function"
       ) {
+        const sidebar = instant ? document.querySelector("#sidebar") : null;
+        if (!sidebar) {
+          app[methodName]();
+          return;
+        }
+
+        // 사이드바를 열자마자(onEnter) showStep이 곧바로 가시성을 판정하는데,
+        // 0.3s transform 트랜지션이 아직 시작 전이라 "화면 밖"으로 오판되어
+        // 1번 스텝이 스킵되는 레이스가 있었다. 트랜지션을 잠깐 끄고 즉시
+        // 최종 위치로 스냅시킨 뒤, 다음 프레임에 복원해 레이스를 없앤다.
+        const prevTransition = sidebar.style.transition;
+        sidebar.style.transition = "none";
         app[methodName]();
+        void sidebar.offsetHeight;
+        requestAnimationFrame(() => {
+          sidebar.style.transition = prevTransition;
+        });
       }
     };
   }
@@ -48,7 +64,7 @@
       selector: "#sidebar",
       title: "탐색기",
       text: "왼쪽은 탐색기예요. 파일은 여기서 열어요.",
-      onEnter: withMobileSidebar("openMobileSidebar"),
+      onEnter: withMobileSidebar("openMobileSidebar", { instant: true }),
       onExit: withMobileSidebar("closeMobileSidebar"),
     },
     {
