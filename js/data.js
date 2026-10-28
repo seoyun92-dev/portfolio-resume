@@ -714,20 +714,34 @@ const portfolio = {
             },
           ],
         },
-        // {
-        //   type: "heading",
-        //   level: 2,
-        //   content: "🔗 링크",
-        // },
-        // {
-        //   type: "links",
-        //   items: [
-        //     {
-        //       label: "GitHub",
-        //       url: "// TODO: GitHub 프로필 URL",
-        //     }
-        //   ],
-        // },
+        {
+          type: "heading",
+          level: 2,
+          content: "🔗 깃허브",
+        },
+        {
+          type: "links",
+          items: [
+            {
+              label: "seoyun92-dev",
+              url: "https://github.com/seoyun92-dev",
+            },
+          ],
+        },
+        {
+          type: "heading",
+          level: 2,
+          content: "🔗 블로그",
+        },
+        {
+          type: "links",
+          items: [
+            {
+              label: "Extra + Ordinary",
+              url: "https://seoyun-is-connecting-the-dots.tistory.com/",
+            },
+          ],
+        },
         {
           type: "heading",
           level: 2,

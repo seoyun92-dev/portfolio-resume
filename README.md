@@ -446,7 +446,6 @@ public class 자기소개 {
 ## 연락처
 
 - **이메일**: seoyun.join@gmail.com
-- **GitHub**: [GitHub 프로필 링크 추가]
 
 ---
 
